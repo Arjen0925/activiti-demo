@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1602594591103" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="second_approve" isClosed="false" isExecutable="false" name="二级审批流程" processType="None">
+    <startEvent id="startEvent" name="开始"/>
+    <userTask activiti:exclusive="true" id="submitForm" name="填写审批信息">
+      <extensionElements>
+        <activiti:formProperty id="message" name="申请信息" required="true" type="string"/>
+        <activiti:formProperty id="name" name="申请人名称" required="true" type="string"/>
+        <activiti:formProperty datePattern="yyyy-MM-dd" id="submitTime" name="提交时间" required="true" type="date"/>
+        <activiti:formProperty id="submitType" name="确认申请" required="true" type="string"/>
+        <activiti:formProperty/>
+      </extensionElements>
+    </userTask>
+    <userTask activiti:exclusive="true" id="tl_approve" name="主管审批">
+      <extensionElements>
+        <activiti:formProperty id="tlApprove" name="主管审批结果" required="false" type="string"/>
+        <activiti:formProperty id="tlMessage" name="主管备注" required="true" type="string"/>
+      </extensionElements>
+    </userTask>
+    <parallelGateway gatewayDirection="Unspecified" id="decideSubmit" name="提交取消"/>
+    <parallelGateway gatewayDirection="Unspecified" id="desideTLApprove" name="主管审批校验"/>
+    <userTask activiti:exclusive="true" id="hr_approve" name="人事审批">
+      <extensionElements>
+        <activiti:formProperty id="hrApprove" name="人事审批结果" required="true" type="string"/>
+        <activiti:formProperty id="hrMessage" name="人事备注" required="true" type="string"/>
+        <activiti:formProperty id="qqqq" name="qqq"/>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="_12" sourceRef="desideTLApprove" targetRef="hr_approve">
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[
+        ]]>
+      </conditionExpression>
+    </sequenceFlow>
+    <parallelGateway gatewayDirection="Unspecified" id="decideHRApprove" name="人事审批校验"/>
+    <sequenceFlow id="_14" sourceRef="hr_approve" targetRef="decideHRApprove"/>
+    <endEvent id="endEvent" name="结束"/>
+    <sequenceFlow id="_16" sourceRef="decideHRApprove" targetRef="endEvent">
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[
+        ]]>
+      </conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endEventCancel" name="取消"/>
+    <sequenceFlow id="_4" sourceRef="startEvent" targetRef="submitForm"/>
+    <sequenceFlow id="_7" sourceRef="submitForm" targetRef="decideSubmit"/>
+    <sequenceFlow id="_8" sourceRef="decideSubmit" targetRef="tl_approve">
+      <conditionExpression xsi:type="tFormalExpression"/>
+    </sequenceFlow>
+    <sequenceFlow id="_10" sourceRef="tl_approve" targetRef="desideTLApprove"/>
+    <sequenceFlow id="_18" sourceRef="decideSubmit" targetRef="endEventCancel">
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[
+        ]]>
+      </conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_19" sourceRef="desideTLApprove" targetRef="submitForm">
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[
+        ]]>
+      </conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_21" sourceRef="decideHRApprove" targetRef="submitForm">
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[
+        ]]>
+      </conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram documentation="background=#3C3F41;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="second_approve">
+      <bpmndi:BPMNShape bpmnElement="startEvent" id="Shape-startEvent">
+        <omgdc:Bounds height="32.0" width="32.0" x="10.0" y="135.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="submitForm" id="Shape-submitForm">
+        <omgdc:Bounds height="55.0" width="95.0" x="110.0" y="125.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="95.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="tl_approve" id="Shape-tl_approve">
+        <omgdc:Bounds height="55.0" width="85.0" x="355.0" y="135.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="decideSubmit" id="Shape-decideSubmit">
+        <omgdc:Bounds height="32.0" width="32.0" x="265.0" y="135.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="desideTLApprove" id="Shape-desideTLApprove">
+        <omgdc:Bounds height="32.0" width="32.0" x="520.0" y="155.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="hr_approve" id="Shape-hr_approve">
+        <omgdc:Bounds height="55.0" width="85.0" x="650.0" y="125.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="decideHRApprove" id="Shape-decideHRApprove">
+        <omgdc:Bounds height="32.0" width="32.0" x="795.0" y="140.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endEvent" id="Shape-endEvent">
+        <omgdc:Bounds height="32.0" width="32.0" x="880.0" y="140.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endEventCancel" id="Shape-endEventCancel">
+        <omgdc:Bounds height="32.0" width="32.0" x="380.0" y="220.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_12" id="BPMNEdge__12" sourceElement="desideTLApprove" targetElement="hr_approve">
+        <omgdi:waypoint x="552.0" y="171.0"/>
+        <omgdi:waypoint x="650.0" y="152.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_14" id="BPMNEdge__14" sourceElement="hr_approve" targetElement="decideHRApprove">
+        <omgdi:waypoint x="735.0" y="152.5"/>
+        <omgdi:waypoint x="795.0" y="156.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_16" id="BPMNEdge__16" sourceElement="decideHRApprove" targetElement="endEvent">
+        <omgdi:waypoint x="827.0" y="156.0"/>
+        <omgdi:waypoint x="880.0" y="156.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_19" id="BPMNEdge__19" sourceElement="desideTLApprove" targetElement="submitForm">
+        <omgdi:waypoint x="536.0" y="187.0"/>
+        <omgdi:waypoint x="370.0" y="310.0"/>
+        <omgdi:waypoint x="157.5" y="180.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_18" id="BPMNEdge__18" sourceElement="decideSubmit" targetElement="endEventCancel">
+        <omgdi:waypoint x="285.0" y="163.0"/>
+        <omgdi:waypoint x="285.0" y="240.0"/>
+        <omgdi:waypoint x="380.5080666151703" y="240.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4" id="BPMNEdge__4" sourceElement="startEvent" targetElement="submitForm">
+        <omgdi:waypoint x="42.0" y="151.0"/>
+        <omgdi:waypoint x="110.0" y="152.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7" id="BPMNEdge__7" sourceElement="submitForm" targetElement="decideSubmit">
+        <omgdi:waypoint x="205.0" y="150.0"/>
+        <omgdi:waypoint x="235.0" y="150.0"/>
+        <omgdi:waypoint x="266.0" y="150.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8" id="BPMNEdge__8" sourceElement="decideSubmit" targetElement="tl_approve">
+        <omgdi:waypoint x="293.0" y="155.0"/>
+        <omgdi:waypoint x="330.0" y="155.0"/>
+        <omgdi:waypoint x="355.0" y="155.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10" id="BPMNEdge__10" sourceElement="tl_approve" targetElement="desideTLApprove">
+        <omgdi:waypoint x="440.0" y="170.0"/>
+        <omgdi:waypoint x="475.0" y="170.0"/>
+        <omgdi:waypoint x="521.0" y="170.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_21" id="BPMNEdge__21" sourceElement="decideHRApprove" targetElement="submitForm">
+        <omgdi:waypoint x="811.0" y="140.0"/>
+        <omgdi:waypoint x="500.0" y="65.0"/>
+        <omgdi:waypoint x="157.5" y="125.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
