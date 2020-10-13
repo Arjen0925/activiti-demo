@@ -8,7 +8,6 @@
         <activiti:formProperty id="name" name="申请人名称" required="true" type="string"/>
         <activiti:formProperty datePattern="yyyy-MM-dd" id="submitTime" name="提交时间" required="true" type="date"/>
         <activiti:formProperty id="submitType" name="确认申请" required="true" type="string"/>
-        <activiti:formProperty/>
       </extensionElements>
     </userTask>
     <userTask activiti:exclusive="true" id="tl_approve" name="主管审批">

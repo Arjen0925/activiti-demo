@@ -36,12 +36,24 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.activiti/activiti-spring-boot-starter -->
+
+
+<!--        <dependency>-->
+<!--            <groupId>org.activiti</groupId>-->
+<!--            <artifactId>activiti-spring-boot-starter</artifactId>-->
+<!--            <version>7.1.0.M6</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring-boot-starter</artifactId>
-            <version>7.1.0.M6</version>
+            <artifactId>activiti-engine</artifactId>
+            <version>6.0.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
